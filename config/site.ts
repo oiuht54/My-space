@@ -3,10 +3,10 @@ import { Icons } from '@/components/icons';
 
 export const siteConfig = {
     details: {
-        name: "Alex Dev",
+        name: "Diziac",
         role: "Fullstack Developer",
         bio: "Разрабатываю инструменты, которые упрощают жизнь, и экспериментирую с генеративным вебом. Люблю JavaFX за мощь десктопа и Next.js за гибкость веба.",
-        email: "alex@example.com",
+        email: "tartaruscore@gmail.com",
         avatar: "/avatar.jpg",
     },
     socials: [
@@ -27,7 +27,7 @@ export const siteConfig = {
         },
         {
             name: "Email",
-            url: "mailto:alex@example.com",
+            url: "tartaruscore@gmail.com",
             icon: Mail,
         },
     ],

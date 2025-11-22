@@ -8,16 +8,14 @@ import Image from "next/image";
 const getProjectImage = (project: typeof siteConfig.projects[0]) => {
     if (project.image) return project.image;
 
-    // Если картинки нет, пробуем сгенерировать GitHub OpenGraph ссылку
     if (project.repoLink && project.repoLink.includes("github.com")) {
         const parts = project.repoLink.split("/");
-        // Формат: https://github.com/user/repo
         const user = parts[parts.length - 2];
         const repo = parts[parts.length - 1];
         return `https://opengraph.githubassets.com/1/${user}/${repo}`;
     }
 
-    return null; // Если совсем ничего нет
+    return null;
 };
 
 export default function Home() {
@@ -80,39 +78,58 @@ export default function Home() {
 
                     {/* 2. RIGHT CARD: FEATURED PROJECT */}
                     <div className="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-3xl flex flex-col relative overflow-hidden group hover:border-neutral-700 transition-colors h-full min-h-[500px]">
-                        {/* Верхняя часть с текстом (padding есть) */}
-                        <div className="p-8 pb-0 flex flex-col z-20">
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="inline-flex items-center rounded-full bg-indigo-500/20 px-3 py-1 text-xs font-medium text-indigo-300 ring-1 ring-inset ring-indigo-500/30">
-                                    Featured Project
-                                </div>
-                                {featuredProject.repoLink && (
-                                    <Link href={featuredProject.repoLink} target="_blank" className="p-3 bg-white rounded-full text-black hover:scale-110 transition-transform shadow-lg">
-                                        <ArrowUpRight className="w-5 h-5" />
-                                    </Link>
-                                )}
-                            </div>
 
-                            <h3 className="text-3xl font-bold text-white mb-4">{featuredProject.title}</h3>
-                            <p className="text-neutral-300 text-base mb-6 line-clamp-3">
-                                {featuredProject.description}
-                            </p>
-                        </div>
-
-                        {/* Нижняя часть с картинкой (на всю ширину) */}
-                        <div className="relative w-full flex-1 mt-4 overflow-hidden rounded-t-xl mx-auto border-t border-white/10 bg-neutral-950">
+                        {/* Картинка сверху (БЕЗ кнопки) */}
+                        <div className="relative w-full h-64 md:h-72 bg-neutral-950 border-b border-white/5 overflow-hidden">
                             {featuredImage ? (
                                 <Image
                                     src={featuredImage}
                                     alt={featuredProject.title}
                                     fill
-                                    className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                    className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-neutral-950">
-                                    <span className="text-4xl font-black text-white/5 tracking-widest">NO IMAGE</span>
+                                    <span className="text-4xl font-black text-white/5 tracking-widest">PROJECT</span>
                                 </div>
                             )}
+
+                            {/* Бейдж оставляем на картинке, он обычно читается нормально */}
+                            <div className="absolute top-4 left-4 inline-flex items-center rounded-full bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-medium text-white border border-white/10 z-10">
+                                ⭐️ Featured Project
+                            </div>
+                        </div>
+
+                        {/* КОНТЕНТ СНИЗУ */}
+                        <div className="p-8 flex flex-col flex-1">
+                            <div className="flex justify-between items-start mb-4">
+                                <h3 className="text-3xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                                    {featuredProject.title}
+                                </h3>
+
+                                {/* КНОПКА ПЕРЕЕХАЛА СЮДА */}
+                                {featuredProject.repoLink && (
+                                    <Link
+                                        href={featuredProject.repoLink}
+                                        target="_blank"
+                                        className="p-3 bg-neutral-800 rounded-full text-neutral-300 hover:bg-white hover:text-black transition-colors shrink-0"
+                                    >
+                                        <ArrowUpRight className="w-5 h-5" />
+                                    </Link>
+                                )}
+                            </div>
+
+                            <p className="text-neutral-400 text-base mb-6 leading-relaxed flex-1">
+                                {featuredProject.description}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 pt-4 mt-auto border-t border-white/5">
+                                {featuredProject.tech.map((t, i) => (
+                                    <span key={i} className="text-xs uppercase tracking-wider text-neutral-500 font-medium bg-neutral-950/50 px-2 py-1 rounded border border-neutral-800">
+                        {t}
+                      </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -130,7 +147,6 @@ export default function Home() {
                                     key={idx}
                                     className="group relative flex flex-col rounded-2xl border border-neutral-800 bg-neutral-900/30 hover:bg-neutral-900 transition-all hover:-translate-y-1 duration-300 overflow-hidden"
                                 >
-                                    {/* Картинка проекта */}
                                     <div className="relative w-full h-48 bg-neutral-950 border-b border-neutral-800 overflow-hidden">
                                         {projectImage ? (
                                             <Image
