@@ -3,7 +3,7 @@ import { Icons } from '@/components/icons';
 
 export const siteConfig = {
     details: {
-        name: "Alex Dev", // Твое имя (можешь поменять на никнейм oiuht54, если хочешь)
+        name: "Alex Dev",
         role: "Fullstack Developer",
         bio: "Разрабатываю инструменты, которые упрощают жизнь, и экспериментирую с генеративным вебом. Люблю JavaFX за мощь десктопа и Next.js за гибкость веба.",
         email: "alex@example.com",
@@ -17,12 +17,12 @@ export const siteConfig = {
         },
         {
             name: "Itch.io",
-            url: "https://itch.io", // Если есть профиль, вставь ссылку, иначе можно убрать
+            url: "https://itch.io",
             icon: Icons.ItchIo,
         },
         {
             name: "Telegram",
-            url: "https://t.me", // Твой телеграм
+            url: "https://t.me",
             icon: Icons.Telegram,
         },
         {
@@ -34,27 +34,32 @@ export const siteConfig = {
     projects: [
         {
             title: "TxtConverter",
-            description: "Профессиональная утилита для подготовки исходного кода проектов к анализу нейросетями (LLM). Сканирует папки, игнорирует мусор и собирает всё в один оптимизированный файл.",
+            description: "Профессиональная утилита для подготовки кода к анализу нейросетями. Сканирует папки, игнорирует мусор и собирает всё в один файл.",
             tech: ["Java 21", "JavaFX", "Maven"],
             repoLink: "https://github.com/oiuht54/TxtConverter",
             demoLink: null,
-            featured: true, // Показывается в большой карточке справа
+            featured: true,
+            // Если оставить image пустым (""), сайт попытается взять баннер с GitHub
+            // Если хочешь свою картинку: положи файл в public и напиши "/my-image.jpg"
+            image: "",
         },
         {
             title: "Void Oracle",
-            description: "Экспериментальный оракул на базе фракталов и цепей Маркова. Генерирует предсказания, визуализирует множества Жюлиа и синтезирует процедурный звук в реальном времени.",
+            description: "Оракул на базе фракталов. Генерирует предсказания и синтезирует звук в реальном времени.",
             tech: ["Next.js", "Canvas API", "Web Audio API"],
             repoLink: "https://github.com/oiuht54/fortune-teller",
             demoLink: "https://fortune-teller-sigma.vercel.app/",
             featured: false,
+            image: "", // Автоматически подтянет с GitHub
         },
         {
             title: "Portfolio Website",
-            description: "Этот самый сайт. Минималистичное портфолио с Bento-сеткой, адаптивным дизайном и темной темой.",
-            tech: ["Next.js 14", "Tailwind CSS", "Framer Motion"],
-            repoLink: "https://github.com/oiuht54/portfolio", // Заменишь на ссылку когда запушишь этот проект
+            description: "Минималистичное портфолио с Bento-сеткой и адаптивным дизайном.",
+            tech: ["Next.js 14", "Tailwind CSS"],
+            repoLink: "https://github.com/oiuht54/portfolio",
             demoLink: null,
             featured: false,
+            image: "", // Автоматически подтянет с GitHub
         },
     ]
 };

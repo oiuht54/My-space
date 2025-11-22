@@ -4,9 +4,27 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Вспомогательная функция для получения ссылки на картинку
+const getProjectImage = (project: typeof siteConfig.projects[0]) => {
+    if (project.image) return project.image;
+
+    // Если картинки нет, пробуем сгенерировать GitHub OpenGraph ссылку
+    if (project.repoLink && project.repoLink.includes("github.com")) {
+        const parts = project.repoLink.split("/");
+        // Формат: https://github.com/user/repo
+        const user = parts[parts.length - 2];
+        const repo = parts[parts.length - 1];
+        return `https://opengraph.githubassets.com/1/${user}/${repo}`;
+    }
+
+    return null; // Если совсем ничего нет
+};
+
 export default function Home() {
     const featuredProject = siteConfig.projects.find(p => p.featured) || siteConfig.projects[0];
     const otherProjects = siteConfig.projects.filter(p => p !== featuredProject);
+
+    const featuredImage = getProjectImage(featuredProject);
 
     return (
         <div className="min-h-screen bg-neutral-950 text-neutral-200 selection:bg-indigo-500/30 selection:text-white">
@@ -17,12 +35,11 @@ export default function Home() {
                 {/* --- HERO GRID SECTION --- */}
                 <section className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-12 lg:mb-24">
 
-                    {/* 1. LEFT CARD: PROFILE + AVATAR */}
-                    <div className="lg:col-span-3 bg-neutral-900/50 border border-neutral-800 rounded-3xl p-8 md:p-12 flex flex-col relative overflow-hidden group min-h-[400px]">
+                    {/* 1. LEFT CARD: PROFILE */}
+                    <div className="lg:col-span-3 bg-neutral-900/50 border border-neutral-800 rounded-3xl p-8 md:p-12 flex flex-col relative overflow-hidden group min-h-[500px]">
                         <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                         <div className="z-10 flex flex-col md:flex-row gap-8 items-start md:items-center mb-6">
-                            {/* АВАТАРКА: Заменили rounded-full на rounded-2xl */}
                             <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-2xl overflow-hidden border-4 border-neutral-800 shadow-2xl">
                                 <Image
                                     src={siteConfig.details.avatar}
@@ -32,7 +49,6 @@ export default function Home() {
                                     priority
                                 />
                             </div>
-
                             <div>
                                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-2 tracking-tight">
                                     {siteConfig.details.name}
@@ -47,7 +63,6 @@ export default function Home() {
                             {siteConfig.details.bio}
                         </p>
 
-                        {/* Кнопки соцсетей */}
                         <div className="flex flex-wrap gap-4 mt-auto z-10">
                             {siteConfig.socials.map((social, idx) => (
                                 <Link
@@ -55,7 +70,7 @@ export default function Home() {
                                     href={social.url}
                                     target="_blank"
                                     className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 hover:scale-110"
-                                    title={social.name} // Добавили подсказку при наведении
+                                    title={social.name}
                                 >
                                     <social.icon className="w-6 h-6" />
                                 </Link>
@@ -64,10 +79,9 @@ export default function Home() {
                     </div>
 
                     {/* 2. RIGHT CARD: FEATURED PROJECT */}
-                    <div className="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-3xl p-8 flex flex-col relative overflow-hidden group hover:border-neutral-700 transition-colors min-h-[400px]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-neutral-900 opacity-50 group-hover:opacity-70 transition-opacity"></div>
-
-                        <div className="relative z-10 h-full flex flex-col">
+                    <div className="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-3xl flex flex-col relative overflow-hidden group hover:border-neutral-700 transition-colors h-full min-h-[500px]">
+                        {/* Верхняя часть с текстом (padding есть) */}
+                        <div className="p-8 pb-0 flex flex-col z-20">
                             <div className="flex justify-between items-start mb-6">
                                 <div className="inline-flex items-center rounded-full bg-indigo-500/20 px-3 py-1 text-xs font-medium text-indigo-300 ring-1 ring-inset ring-indigo-500/30">
                                     Featured Project
@@ -80,13 +94,25 @@ export default function Home() {
                             </div>
 
                             <h3 className="text-3xl font-bold text-white mb-4">{featuredProject.title}</h3>
-                            <p className="text-neutral-300 text-base mb-8 line-clamp-4">
+                            <p className="text-neutral-300 text-base mb-6 line-clamp-3">
                                 {featuredProject.description}
                             </p>
+                        </div>
 
-                            <div className="mt-auto w-full h-32 md:h-48 bg-neutral-950/60 rounded-xl border border-white/5 flex items-center justify-center backdrop-blur-sm">
-                                <span className="text-5xl font-black text-white/5 select-none tracking-widest">PROJECT</span>
-                            </div>
+                        {/* Нижняя часть с картинкой (на всю ширину) */}
+                        <div className="relative w-full flex-1 mt-4 overflow-hidden rounded-t-xl mx-auto border-t border-white/10 bg-neutral-950">
+                            {featuredImage ? (
+                                <Image
+                                    src={featuredImage}
+                                    alt={featuredProject.title}
+                                    fill
+                                    className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center bg-neutral-950">
+                                    <span className="text-4xl font-black text-white/5 tracking-widest">NO IMAGE</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>
@@ -96,43 +122,60 @@ export default function Home() {
                     <h2 className="text-2xl font-bold text-white mb-8 pl-1">Все проекты</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {otherProjects.map((project, idx) => (
-                            <div
-                                key={idx}
-                                className="group relative flex flex-col rounded-2xl border border-neutral-800 bg-neutral-900/30 hover:bg-neutral-900 transition-all hover:-translate-y-1 duration-300"
-                            >
-                                <div className="p-6 flex flex-col h-full">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className="w-10 h-10 rounded-lg bg-neutral-800 flex items-center justify-center border border-neutral-700 text-neutral-400">
-                                            <span className="font-bold">{project.title[0]}</span>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            {project.repoLink && (
-                                                <Link href={project.repoLink} target="_blank" className="text-neutral-500 hover:text-white transition-colors p-1">
-                                                    <Github className="w-5 h-5" />
-                                                </Link>
-                                            )}
-                                            {project.demoLink && (
-                                                <Link href={project.demoLink} target="_blank" className="text-neutral-500 hover:text-white transition-colors p-1">
-                                                    <ExternalLink className="w-5 h-5" />
-                                                </Link>
-                                            )}
-                                        </div>
+                        {otherProjects.map((project, idx) => {
+                            const projectImage = getProjectImage(project);
+
+                            return (
+                                <div
+                                    key={idx}
+                                    className="group relative flex flex-col rounded-2xl border border-neutral-800 bg-neutral-900/30 hover:bg-neutral-900 transition-all hover:-translate-y-1 duration-300 overflow-hidden"
+                                >
+                                    {/* Картинка проекта */}
+                                    <div className="relative w-full h-48 bg-neutral-950 border-b border-neutral-800 overflow-hidden">
+                                        {projectImage ? (
+                                            <Image
+                                                src={projectImage}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <span className="font-bold text-neutral-700 text-4xl">{project.title[0]}</span>
+                                            </div>
+                                        )}
                                     </div>
 
-                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">{project.title}</h3>
-                                    <p className="text-neutral-400 text-sm mb-6 flex-1">{project.description}</p>
+                                    <div className="p-6 flex flex-col flex-1">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors pr-4">{project.title}</h3>
+                                            <div className="flex gap-2 shrink-0">
+                                                {project.repoLink && (
+                                                    <Link href={project.repoLink} target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+                                                        <Github className="w-4 h-4" />
+                                                    </Link>
+                                                )}
+                                                {project.demoLink && (
+                                                    <Link href={project.demoLink} target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+                                                        <ExternalLink className="w-4 h-4" />
+                                                    </Link>
+                                                )}
+                                            </div>
+                                        </div>
 
-                                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-neutral-800/50">
-                                        {project.tech.map((t, i) => (
-                                            <span key={i} className="text-[10px] uppercase tracking-wider text-neutral-500 font-medium">
-                        {t}
-                      </span>
-                                        ))}
+                                        <p className="text-neutral-400 text-sm mb-6 flex-1 line-clamp-3">{project.description}</p>
+
+                                        <div className="flex flex-wrap gap-2 mt-auto">
+                                            {project.tech.slice(0, 3).map((t, i) => (
+                                                <span key={i} className="text-[10px] uppercase tracking-wider text-neutral-500 font-medium bg-neutral-950/50 px-2 py-1 rounded border border-neutral-800">
+                            {t}
+                          </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
 
