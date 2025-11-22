@@ -54,9 +54,9 @@ export const siteConfig = {
         },
         {
             title: "Portfolio Website",
-            description: "Минималистичное портфолио с Bento-сеткой и адаптивным дизайном.",
+            description: "Конкретно этот сайт. Минималистичное портфолио с Bento-сеткой и адаптивным дизайном.",
             tech: ["Next.js 14", "Tailwind CSS"],
-            repoLink: "https://github.com/oiuht54/portfolio",
+            repoLink: "https://github.com/oiuht54/My-space",
             demoLink: null,
             featured: false,
             image: "", // Автоматически подтянет с GitHub
