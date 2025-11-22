@@ -1,5 +1,6 @@
 # Personal Portfolio Website
 [![Visit App](https://img.shields.io/badge/Visit-Live_App-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://diziac.vercel.app/)
+
 Минималистичное портфолио разработчика, построенное на **Next.js 14**, **Tailwind CSS** и **TypeScript**.
 Сайт спроектирован как "цифровая визитка": быстрый, адаптивный и легкий в настройке через единый конфигурационный файл.
 
