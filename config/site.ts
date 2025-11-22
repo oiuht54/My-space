@@ -1,29 +1,29 @@
-import { Github, Mail } from 'lucide-react'; // Оставляем стандартные
-import { Icons } from '@/components/icons'; // Наши кастомные
+import { Github, Mail, ExternalLink } from 'lucide-react';
+import { Icons } from '@/components/icons';
 
 export const siteConfig = {
     details: {
-        name: "Alex Dev",
-        role: "Frontend Developer",
-        bio: "Привет! Я занимаюсь веб-разработкой. Создаю быстрые и удобные интерфейсы. Люблю разбираться в новых технологиях и решать сложные задачи.",
+        name: "Alex Dev", // Твое имя (можешь поменять на никнейм oiuht54, если хочешь)
+        role: "Fullstack Developer",
+        bio: "Разрабатываю инструменты, которые упрощают жизнь, и экспериментирую с генеративным вебом. Люблю JavaFX за мощь десктопа и Next.js за гибкость веба.",
         email: "alex@example.com",
         avatar: "/avatar.jpg",
     },
     socials: [
         {
             name: "GitHub",
-            url: "https://github.com",
+            url: "https://github.com/oiuht54",
             icon: Github,
         },
         {
             name: "Itch.io",
-            url: "https://itch.io",
-            icon: Icons.ItchIo, // Используем новую иконку
+            url: "https://itch.io", // Если есть профиль, вставь ссылку, иначе можно убрать
+            icon: Icons.ItchIo,
         },
         {
             name: "Telegram",
-            url: "https://t.me",
-            icon: Icons.Telegram, // Используем новую иконку
+            url: "https://t.me", // Твой телеграм
+            icon: Icons.Telegram,
         },
         {
             name: "Email",
@@ -32,36 +32,27 @@ export const siteConfig = {
         },
     ],
     projects: [
-        // ... твой список проектов (без изменений)
         {
-            title: "Project Alpha (Featured)",
-            description: "Платформа для аналитики данных с дашбордом в реальном времени. Самый крутой проект.",
-            tech: ["React", "D3.js", "Tailwind"],
-            repoLink: "https://github.com",
-            demoLink: "https://example.com",
-            featured: true,
-        },
-        {
-            title: "Beta App",
-            description: "Мобильное приложение для трекинга привычек. Синхронизация между устройствами.",
-            tech: ["React Native", "Firebase"],
-            repoLink: "https://github.com",
+            title: "TxtConverter",
+            description: "Профессиональная утилита для подготовки исходного кода проектов к анализу нейросетями (LLM). Сканирует папки, игнорирует мусор и собирает всё в один оптимизированный файл.",
+            tech: ["Java 21", "JavaFX", "Maven"],
+            repoLink: "https://github.com/oiuht54/TxtConverter",
             demoLink: null,
+            featured: true, // Показывается в большой карточке справа
+        },
+        {
+            title: "Void Oracle",
+            description: "Экспериментальный оракул на базе фракталов и цепей Маркова. Генерирует предсказания, визуализирует множества Жюлиа и синтезирует процедурный звук в реальном времени.",
+            tech: ["Next.js", "Canvas API", "Web Audio API"],
+            repoLink: "https://github.com/oiuht54/fortune-teller",
+            demoLink: "https://fortune-teller-sigma.vercel.app/",
             featured: false,
         },
         {
-            title: "Gamma UI",
-            description: "Библиотека UI компонентов. Полностью типизирована и доступна.",
-            tech: ["Vue", "SCSS", "Rollup"],
-            repoLink: "https://github.com",
-            demoLink: "https://example.com",
-            featured: false,
-        },
-        {
-            title: "Delta Service",
-            description: "Микросервис для обработки платежей.",
-            tech: ["Go", "gRPC"],
-            repoLink: "https://github.com",
+            title: "Portfolio Website",
+            description: "Этот самый сайт. Минималистичное портфолио с Bento-сеткой, адаптивным дизайном и темной темой.",
+            tech: ["Next.js 14", "Tailwind CSS", "Framer Motion"],
+            repoLink: "https://github.com/oiuht54/portfolio", // Заменишь на ссылку когда запушишь этот проект
             demoLink: null,
             featured: false,
         },
