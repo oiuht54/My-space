@@ -35,10 +35,19 @@ export const siteConfig = {
         {
             title: "TxtConverter",
             description: "Профессиональная утилита для подготовки кода к анализу нейросетями. Сканирует папки, игнорирует мусор и собирает всё в один файл.",
-            tech: ["Java 21", "JavaFX", "Maven"],
+            tech: [".NET10", "WPF", "C#"],
             repoLink: "https://github.com/oiuht54/TxtConverter",
             demoLink: null,
             featured: true,
+            image: "",
+        },
+        {
+            title: "TxtConverter-Legacy",
+            description: "Профессиональная утилита для подготовки кода к анализу нейросетями. Сканирует папки, игнорирует мусор и собирает всё в один файл.",
+            tech: ["Java 21", "JavaFX", "Maven"],
+            repoLink: "https://github.com/oiuht54/TxtConverter-Legacy",
+            demoLink: null,
+            featured: false,
             // Если оставить image пустым (""), сайт попытается взять баннер с GitHub
             // Если хочешь свою картинку: положи файл в public и напиши "/my-image.jpg"
             image: "",
