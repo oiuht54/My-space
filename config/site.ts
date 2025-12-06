@@ -55,7 +55,7 @@ export const siteConfig = {
         {
             title: "gemini-file-sync",
             description: "AI Studio Local Bridge — это инструмент для разработчиков, который соединяет Google AI Studio (Gemini) с вашей локальной файловой системой. Он избавляет от необходимости вручную копировать и вставлять файлы с кодом, сгенерированные нейросетью.",
-            tech: ["NodeJS", "TumperMonkey"],
+            tech: ["NodeJS", "TamperMonkey"],
             repoLink: "https://github.com/oiuht54/gemini-file-sync",
             demoLink: null,
             featured: false,
